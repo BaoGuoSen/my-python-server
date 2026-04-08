@@ -1,0 +1,19 @@
+# Changes here will be overwritten by Copier
+_commit: 0.6.1
+_src_path: https://github.com/fastapi-mvc/copier-project.git
+aiohttp: false
+author: baoguosen
+chart_name: my-fastapi-project
+container_image_name: my-fastapi-project
+copyright_date: '2026'
+email: 2563209120@qq.com
+github_actions: false
+helm: false
+license: MIT
+nix: false
+project_description: This project was generated with fastapi-mvc.
+project_name: my-fastapi-project
+redis: false
+repo_url: https://your.repo.url.here
+script_name: my-fastapi-project
+version: 0.1.0

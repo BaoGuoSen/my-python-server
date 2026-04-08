@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xxd /Users/baoguosen/Documents/myProject/home-cook-server/prd.md)",
+      "Bash(poetry add:*)",
+      "Bash(for d:*)",
+      "Bash(do echo:*)"
+    ]
+  }
+}
