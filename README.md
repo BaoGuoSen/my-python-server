@@ -122,3 +122,34 @@ make docs
 ## License
 
 本项目采用 MIT 许可证。
+
+
+http://guosenpower.cn/api/ready
+
+systemctl restart home-cook
+
+镜像信息
+
+Ubuntu 24.04 LTS
+
+CPU/内存
+
+2核/2GB
+
+系统盘
+
+40GB SSD
+
+带宽
+
+3Mbps
+
+流量包
+
+200GB/月
+
+公网IP地址
+
+162.14.123.29
+
+ vim /etc/nginx/sites-available/home-cook

@@ -9,10 +9,10 @@ from my_fastapi_project.app.exceptions.http import HTTPException
 from my_fastapi_project.app.models.database import get_db
 from my_fastapi_project.app.models.user import User
 from my_fastapi_project.app.views.user import UserResponse, UserUpdateRequest
+from my_fastapi_project.config import settings
 
 router = APIRouter(prefix="/users", tags=["users"])
 
-SECRET_KEY = "your-secret-key-change-in-production"
 ALGORITHM = "HS256"
 _security = HTTPBearer()
 
@@ -36,7 +36,7 @@ async def get_current_user(
     """
     token = credentials.credentials
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[ALGORITHM])
         user_id = int(payload.get("sub"))
     except (JWTError, ValueError):
         raise HTTPException(status_code=401, content={"detail": "Invalid token"})
