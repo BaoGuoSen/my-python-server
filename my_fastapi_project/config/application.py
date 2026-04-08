@@ -42,8 +42,8 @@ class Application(BaseSettings):
     USE_REDIS: bool = False
     DATABASE_URL: str = "mysql+aiomysql://root:123456@localhost:3306/home_cook"
     SECRET_KEY: str = "your-secret-key-change-in-production"
-    WX_APP_ID: str = "wx8f5169756c7e6760"
-    WX_APP_SECRET: str = "6f01a2132c99b5fb4b3878459a4183cc"
+    WX_APP_ID: str = ""
+    WX_APP_SECRET: str = ""
     COS_SECRET_ID: str = ""
     COS_SECRET_KEY: str = ""
     COS_BUCKET: str = ""
