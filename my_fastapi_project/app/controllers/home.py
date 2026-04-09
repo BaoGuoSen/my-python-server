@@ -18,26 +18,25 @@ from my_fastapi_project.app.views.home import (
 router = APIRouter(prefix="/homes", tags=["homes"])
 
 
-@router.get("", response_model=HomeListResponse)
-async def get_homes(
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
-) -> HomeListResponse:
-    """Get all homes owned by current user.
+@router.get(
+    "",
+    response_model=HomeListResponse,
+    dependencies=[Depends(get_current_user)],
+)
+async def get_homes(db: AsyncSession = Depends(get_db)) -> HomeListResponse:
+    """List all homes (no server-side privacy filter; UI may hide by is_private).
 
     Args:
-        current_user: Current authenticated user.
         db: Database session.
 
     Returns:
-        HomeListResponse: List of homes owned by the user.
+        HomeListResponse: All homes, newest first.
 
     """
-    query = select(Home).where(Home.owner_id == current_user.id)
-    count_result = await db.execute(select(func.count()).select_from(query.subquery()))
+    count_result = await db.execute(select(func.count()).select_from(Home))
     total = count_result.scalar_one()
 
-    result = await db.execute(query)
+    result = await db.execute(select(Home).order_by(Home.created_at.desc()))
     homes = result.scalars().all()
 
     return HomeListResponse(
@@ -79,7 +78,7 @@ async def create_home(
 
 @router.get("/{home_id}", response_model=HomeResponse)
 async def get_home(home_id: int, db: AsyncSession = Depends(get_db)) -> HomeResponse:
-    """Get home by ID.
+    """Get home by ID (no server-side privacy filter).
 
     Args:
         home_id: Home ID.
