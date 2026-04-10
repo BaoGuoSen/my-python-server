@@ -32,14 +32,18 @@ async def get_reviews(
         db: Database session.
 
     Returns:
-        ReviewListResponse: Paginated review list.
+        ReviewListResponse: Paginated review list; most recently updated first.
 
     """
     query = select(Review).where(Review.dish_id == dish_id)
     count_result = await db.execute(select(func.count()).select_from(query.subquery()))
     total = count_result.scalar_one()
 
-    query = query.offset((page - 1) * page_size).limit(page_size)
+    query = (
+        query.order_by(Review.updated_at.desc(), Review.id.desc())
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+    )
     result = await db.execute(query)
     reviews = result.scalars().all()
 

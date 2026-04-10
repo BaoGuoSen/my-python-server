@@ -153,3 +153,5 @@ CPU/内存
 162.14.123.29
 
  vim /etc/nginx/sites-available/home-cook
+
+ cd /app/my-python-server

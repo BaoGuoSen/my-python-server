@@ -5,6 +5,7 @@ from sqlalchemy import BigInteger, DateTime, ForeignKey, Integer, SmallInteger, 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from my_fastapi_project.app.models.database import Base
+from my_fastapi_project.app.utils.wall_clock import shanghai_now
 
 
 class Review(Base):
@@ -19,8 +20,8 @@ class Review(Base):
     rating: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=True)
     like_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=shanghai_now, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=shanghai_now, onupdate=shanghai_now, nullable=False)
 
     dish: Mapped["Dish"] = relationship("Dish", back_populates="reviews")
     home: Mapped["Home"] = relationship("Home", back_populates="reviews")

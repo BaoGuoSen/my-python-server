@@ -35,7 +35,7 @@ async def get_dishes(
         db: Database session.
 
     Returns:
-        DishListResponse: Paginated dish list.
+        DishListResponse: Paginated dish list; most recently updated first.
 
     """
     query = select(Dish).where(Dish.home_id == home_id).options(selectinload(Dish.images))
@@ -45,7 +45,11 @@ async def get_dishes(
     count_result = await db.execute(select(func.count()).select_from(query.subquery()))
     total = count_result.scalar_one()
 
-    query = query.offset((page - 1) * page_size).limit(page_size)
+    query = (
+        query.order_by(Dish.updated_at.desc(), Dish.id.desc())
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+    )
     result = await db.execute(query)
     dishes = result.scalars().all()
 

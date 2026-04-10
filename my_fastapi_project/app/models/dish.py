@@ -6,6 +6,7 @@ from sqlalchemy import BigInteger, DateTime, ForeignKey, Integer, Numeric, Strin
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from my_fastapi_project.app.models.database import Base
+from my_fastapi_project.app.utils.wall_clock import shanghai_now
 
 
 class Dish(Base):
@@ -21,8 +22,8 @@ class Dish(Base):
     chef_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("chef.id"), nullable=False, index=True)
     avg_rating: Mapped[Decimal] = mapped_column(Numeric(3, 2), default=Decimal("0.00"), nullable=False)
     review_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=shanghai_now, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=shanghai_now, onupdate=shanghai_now, nullable=False)
 
     home: Mapped["Home"] = relationship("Home", back_populates="dishes")
     chef: Mapped["Chef"] = relationship("Chef", back_populates="dishes")
@@ -39,6 +40,6 @@ class DishImage(Base):
     dish_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("dish.id"), nullable=False, index=True)
     url: Mapped[str] = mapped_column(String(500), nullable=False)
     sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=shanghai_now, nullable=False)
 
     dish: Mapped["Dish"] = relationship("Dish", back_populates="images")
