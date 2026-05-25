@@ -8,7 +8,7 @@ class ChefCreateRequest(BaseModel):
     """Chef creation request."""
 
     name: str = Field(..., max_length=100)
-    avatar_url: str = Field(..., max_length=500)
+    avatar_url: str = Field(default="", max_length=500)
     is_friend: bool = Field(default=False)
     bio: str | None = Field(None, max_length=500)
 

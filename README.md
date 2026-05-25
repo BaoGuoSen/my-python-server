@@ -41,6 +41,17 @@ my-fastapi-project/
 └── Makefile                     # 常用命令
 ```
 
+## 环境变量（与线上一致）
+
+微信登录使用的 **`FASTAPI_WX_APP_ID`**、**`FASTAPI_WX_APP_SECRET`** 须与线上面向用户的小程序一致：代码里只读这两个配置名，你在本机应把**与服务器相同的值**写进项目根目录的 **`.env`**（该文件已在 `.gitignore` 中，勿提交）。
+
+```bash
+cp .env.example .env
+# 编辑 .env，填入与生产环境相同的小程序 AppID / AppSecret
+```
+
+生产环境同样使用带前缀的变量名（例如在 `/app/my-python-server/.env` 或 systemd `EnvironmentFile` 中）。修改后需重启服务。
+
 ## 运行方式
 
 ### 1. 安装依赖
